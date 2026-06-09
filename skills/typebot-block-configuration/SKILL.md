@@ -109,11 +109,21 @@ All share a similar structure.
   "type": "text input",
   "options": {
     "variableId": "var-id-cuid",
-    "placeholder": "Enter your answer...",
-    "isLong": false // True for text area (text input only)
+    "isLong": false
   }
 }
 ```
+> [!IMPORTANT]
+> **Do NOT put `placeholder` at the top level of `options`.** If you want a custom placeholder, nest it inside a `labels` object:
+> ```json
+> "options": {
+>   "variableId": "var-id-cuid",
+>   "isLong": false,
+>   "labels": { "placeholder": "Type here...", "button": "Send" }
+> }
+> ```
+> Omitting `labels` entirely is valid — the default placeholder will be used. This is the **preferred minimal form** for imports.
+
 *For Number Input:* You can specify `"min": 0, "max": 100` inside `options`.
 
 ### B. Date & Time Inputs
@@ -274,15 +284,38 @@ Stripe checkout inside bot.
 Logic blocks perform conditional routes, operations, script executions, or changes in variable state.
 
 ### A. Set Variable (`"type": "Set variable"`)
-Sets variable values.
+Sets variable values. Common `type` values: `"value"`, `"Append value(s)"`, `"Empty"`, `"random"`, `"Today's date"`, `"Moment of the day"`, `"Map item with same index"`.
 ```json
 {
   "id": "block-id-cuid",
   "type": "Set variable",
   "options": {
     "variableId": "var-target-id",
-    "type": "value", // "value", "random", "empty"
+    "type": "value",
     "value": "Assign this string or {{anotherVariable}}"
+  }
+}
+```
+To append to a list/string variable:
+```json
+{
+  "id": "block-id-cuid",
+  "type": "Set variable",
+  "options": {
+    "variableId": "var-chat-history-id",
+    "type": "Append value(s)",
+    "item": "New entry: {{userMessage}}"
+  }
+}
+```
+To clear a variable:
+```json
+{
+  "id": "block-id-cuid",
+  "type": "Set variable",
+  "options": {
+    "variableId": "var-target-id",
+    "type": "Empty"
   }
 }
 ```
@@ -353,16 +386,18 @@ Jumps directly to a target group on the canvas.
 ```
 
 ### F. Wait (`"type": "Wait"`)
-Pauses execution.
+Pauses execution for N seconds before continuing.
 ```json
 {
   "id": "block-id-cuid",
   "type": "Wait",
   "options": {
-    "seconds": 5
+    "secondsToWaitFor": "5"
   }
 }
 ```
+> [!IMPORTANT]
+> The field is `"secondsToWaitFor"` (not `"seconds"`), and its value is a **string** (e.g. `"5"`), not a number.
 
 ### G. Typebot Link (`"type": "Typebot link"`)
 Binds another typebot flow.
