@@ -49,3 +49,13 @@ Simply copy the markdown contents of any specific skill (like the block catalog)
 
 ### 3. Manual Project Import
 Download/clone this repository and add it to your custom AI project templates or folder contexts as background training files.
+
+---
+
+## 🤝 Contributing & Feedback
+
+Since Typebot.io evolves its features, schemas, and custom integrations frequently, we welcome feedback and updates! 
+
+* **Report Bugs or Schema Errors:** If you find any missing properties, incorrect block type string casings, or validation issues, please open an issue in the [GitHub Issue Tracker](https://github.com/tayyabhamad/typebot-skills/issues).
+* **Contribute New Blocks:** Feel free to submit a Pull Request (PR) to add new standard options, Forge block definitions, or routing rule optimizations inside the `skills/` folder.
+
