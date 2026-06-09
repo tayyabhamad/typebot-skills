@@ -1,16 +1,22 @@
 {
   "name": "typebot-skills",
   "version": "1.0.0",
-  "description": "An expert AI skill set for compiling and building flawless Typebot workflow JSON configurations.",
-  "authors": [
-    "Tayyab Hamad"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/tayyabhamad/typebot-skills",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tayyabhamad/typebot-skills.git"
+  "description": "Expert AI skills for compiling and building schema-compliant Typebot V6 workflow JSON configurations. Covers all block types, forge integrations, routing, variables, scripting, and Zod schema validation.",
+  "author": {
+    "name": "Tayyab Hamad",
+    "url": "https://github.com/tayyabhamad"
   },
+  "license": "MIT",
+  "keywords": [
+    "typebot",
+    "workflow",
+    "chatbot",
+    "json",
+    "automation",
+    "ai",
+    "claude"
+  ],
+  "homepage": "https://github.com/tayyabhamad/typebot-skills",
   "bugs": {
     "url": "https://github.com/tayyabhamad/typebot-skills/issues"
   }

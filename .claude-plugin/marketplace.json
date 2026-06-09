@@ -1,17 +1,18 @@
 {
-  "name": "typebot-skills-marketplace",
+  "name": "typebot-skills",
   "owner": {
     "name": "Tayyab Hamad",
     "url": "https://github.com/tayyabhamad"
   },
   "metadata": {
-    "description": "A curated set of expert AI skills for compiling and building schema-compliant Typebot V6 workflow JSON configurations.",
+    "description": "Expert AI skills for compiling and building schema-compliant Typebot V6 workflow JSON configurations.",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "typebot-skills",
-      "description": "Expert agent skills for Typebot V6 workflow compilation. Covers all block types (bubbles, inputs, logic, integrations, all 19 forge blocks), routing/edges, variable expressions, scripting, and strict Zod schema validation.",
+      "description": "Expert agent skills for Typebot V6 workflow compilation — all block types, 19 forge integrations, routing, variables, scripting, and Zod schema validation.",
+      "version": "1.0.0",
       "source": "."
     }
   ]
