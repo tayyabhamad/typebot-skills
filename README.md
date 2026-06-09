@@ -1,61 +1,71 @@
 # Typebot Skills for AI Agents 🤖
 
-A collection of 6 highly detailed, domain-specific expert skills designed to enhance AI coding assistants (like Claude, Gemini, ChatGPT, etc.) for compiling, building, and validating production-ready, schema-compliant Typebot JSON workflows.
+A collection of 6 highly detailed, domain-specific expert skills designed to enhance AI coding assistants (Claude Code, Gemini, ChatGPT, etc.) for compiling, building, and validating production-ready, schema-compliant **Typebot V6** JSON workflows.
 
-These skills ensure that your AI agent constructs workflow JSON structures that exactly match Typebot's native database models, visual coordinate layout grids, variable interpolation conventions, and sandboxed scripting environments without errors.
+These skills ensure your AI agent constructs workflow JSON structures that exactly match Typebot's native database models, visual coordinate layout grids, variable interpolation conventions, and sandboxed scripting environments — without errors.
 
 ---
 
 ## 🚀 The 6 Expert Skills
 
-### 1. ⚙️ [typebot-compiler](./skills/typebot-compiler/SKILL.md)
-* **Purpose:** The master orchestration flow.
-* **Details:** Defines the 3-stage compilation protocol (Stage 0: Credentials, Stage 1: Groups/Nodes, Stage 2: Connections/Edges) to build workflows step-by-step.
+### 1. ⚙️ [typebot-compiler](./typebot-compiler/SKILL.md)
+* **Purpose:** Master orchestration flow — the entry point.
+* **Details:** Defines the 3-stage compilation protocol (Stage 0: Credentials, Stage 1: Groups/Nodes, Stage 2: Connections/Edges) and links to all sub-skills.
 
-### 2. 📦 [typebot-block-configuration](./skills/typebot-block-configuration/SKILL.md)
-* **Purpose:** Block catalog and JSON option schemas.
-* **Details:** Detailed templates and properties for all standard Bubble nodes (Text, Embed, Audio, etc.), User Input nodes (Picture Choice, Multi-choice, etc.), Logic blocks (Condition, Jump, Return, AB test, etc.), and integrations (built-in integrations + Forge blocks like Cal.com, Zendesk, Groq, Perplexity, Anthropic, ElevenLabs).
+### 2. 📦 [typebot-block-configuration](./typebot-block-configuration/SKILL.md)
+* **Purpose:** Complete block catalog with JSON schemas.
+* **Details:** Schemas for all Bubble nodes (Text, Embed, Audio, Video, Image), User Input nodes (Choice, Cards, Picture Choice, Rating, File, Payment, Date, Phone), Logic blocks (Condition, Jump, Return, AB test, Set Variable, Code, Webhook), built-in integrations, and all **19 Forge blocks** (OpenAI, Anthropic, Groq, Mistral, Deepseek, Perplexity, ElevenLabs, Cal.com, NocoDB, Gmail, QR Code, OpenRouter, Together AI, Dify.AI, and more).
 
-### 3. 🔐 [typebot-variables-expressions](./skills/typebot-variables-expressions/SKILL.md)
-* **Purpose:** Variables declaration and interpolation syntax.
-* **Details:** Standard conventions for variable declaration models, session properties, pre-defined variables, and parsing values dynamically.
+### 3. 🔐 [typebot-variables-expressions](./typebot-variables-expressions/SKILL.md)
+* **Purpose:** Variable declaration and `{{interpolation}}` syntax.
+* **Details:** Variable declaration schema, session properties, system variables, and correct `{{Variable Name}}` usage in blocks and API payloads.
 
-### 4. 🔗 [typebot-routing-edges](./skills/typebot-routing-edges/SKILL.md)
-* **Purpose:** Canvas routing, coordinates, and edges.
-* **Details:** Math guidelines for group coordinates (horizontal spacing `+400`, vertical `+300`) to avoid visual overlaps, and routing configurations for linear paths, item-level branching, and default catch-alls.
+### 4. 🔗 [typebot-routing-edges](./typebot-routing-edges/SKILL.md)
+* **Purpose:** Canvas coordinates, edges, and routing connections.
+* **Details:** Grid spacing rules (horizontal `+350–450`, vertical `+250–350`), edge schema, block-to-group vs item-to-group branching, and fallback catch-all patterns.
 
-### 5. ✅ [typebot-schema-sync](./skills/typebot-schema-sync/SKILL.md)
-* **Purpose:** Database constraints and key completeness.
-* **Details:** Complete requirements check for all 23 root-level keys of `typebotSchema` and strict union rules to pass engine validators.
+### 5. ✅ [typebot-schema-sync](./typebot-schema-sync/SKILL.md)
+* **Purpose:** Zod schema validation and required root keys.
+* **Details:** All 23 required root-level keys, strict discriminated union type casings, OpenAI casing trap warning, null-safety rules, and escaped JSON payload patterns.
 
-### 6. 🛠️ [typebot-scripting-code](./skills/typebot-scripting-code/SKILL.md)
-* **Purpose:** Custom JavaScript execution in Code blocks.
-* **Details:** Variable mapping, changing execution values via `setVariable()`, and fetch API responses inside the isolated VM sandbox.
+### 6. 🛠️ [typebot-scripting-code](./typebot-scripting-code/SKILL.md)
+* **Purpose:** JavaScript execution in `Code` blocks.
+* **Details:** Variable reading patterns, `setVariable()` API, sandboxed `fetch` API usage, and common scripting pitfalls.
 
 ---
 
 ## 🛠️ Installation & Usage
 
-### 1. Claude Code
-If you are using Claude Code, install these plugins/skills directly via:
+### Method 1 — Claude Code (Recommended)
+Install directly as a Claude Code plugin:
 ```bash
-/plugin install https://github.com/tayyabhamad/typebot-skills.git
+/plugin install tayyabhamad/typebot-skills
 ```
 
-### 2. Copy-Paste Prompting
-Simply copy the markdown contents of any specific skill (like the block catalog) and paste it into your prompt to instruct the AI with correct schemas:
-* [typebot-block-configuration](./skills/typebot-block-configuration/SKILL.md)
-* [typebot-scripting-code](./skills/typebot-scripting-code/SKILL.md)
+Or via marketplace:
+```bash
+/plugin marketplace add tayyabhamad/typebot-skills
+# Then install:
+/plugin install typebot-skills
+```
 
-### 3. Manual Project Import
-Download/clone this repository and add it to your custom AI project templates or folder contexts as background training files.
+### Method 2 — Manual Clone
+```bash
+git clone https://github.com/tayyabhamad/typebot-skills.git
+```
+Copy the skill files into your Claude Code skills directory or paste them into your AI project context.
+
+### Method 3 — Copy-Paste Prompting
+Copy the markdown of any specific skill and paste it directly into your prompt to give the AI the correct schemas:
+- [typebot-block-configuration](./typebot-block-configuration/SKILL.md) — block schemas catalog
+- [typebot-schema-sync](./typebot-schema-sync/SKILL.md) — validation rules
 
 ---
 
 ## 🤝 Contributing & Feedback
 
-Since Typebot.io evolves its features, schemas, and custom integrations frequently, we welcome feedback and updates! 
+Since Typebot.io evolves frequently, contributions are welcome!
 
-* **Report Bugs or Schema Errors:** If you find any missing properties, incorrect block type string casings, or validation issues, please open an issue in the [GitHub Issue Tracker](https://github.com/tayyabhamad/typebot-skills/issues).
-* **Contribute New Blocks:** Feel free to submit a Pull Request (PR) to add new standard options, Forge block definitions, or routing rule optimizations inside the `skills/` folder.
-
+* **Report Schema Errors:** If you find incorrect block schemas, missing fields, or wrong type casings, open an issue in the [GitHub Issue Tracker](https://github.com/tayyabhamad/typebot-skills/issues).
+* **Contribute New Blocks:** Submit a Pull Request to add new Forge block definitions, update existing schemas, or improve routing rules.
+* **Test with a Real Workflow:** Try building a Typebot JSON with these skills and report any validation failures from the local watcher.
