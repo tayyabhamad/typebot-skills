@@ -284,15 +284,23 @@ Stripe checkout inside bot.
 Logic blocks perform conditional routes, operations, script executions, or changes in variable state.
 
 ### A. Set Variable (`"type": "Set variable"`)
-Sets variable values. Common `type` values: `"value"`, `"Append value(s)"`, `"Empty"`, `"random"`, `"Today's date"`, `"Moment of the day"`, `"Map item with same index"`.
+
+> [!IMPORTANT]
+> **Complete list of valid `type` values** (from `setVariable/constants.ts` — source of truth):
+> `"Custom"`, `"Empty"`, `"Append value(s)"`, `"Environment name"`, `"Device type"`, `"Transcript"`, `"User ID"`, `"Result ID"`, `"Now"`, `"Today"`, `"Yesterday"`, `"Tomorrow"`, `"Random ID"`, `"Moment of the day"`, `"Map item with same index"`, `"Pop"`, `"Shift"`, `"Phone number"`, `"Contact name"`, `"Referral Click ID"`, `"Referral Source ID"`.
+>
+> **`"Clear value"` does NOT exist.** The correct value to empty a variable is **`"Empty"`** (capital E).
+> **`"value"`, `"random"`, `"empty"` (lowercase) do NOT exist.** These are wrong.
+
+To set a fixed value or expression (uses `expressionToEvaluate`, NOT `value`):
 ```json
 {
   "id": "block-id-cuid",
   "type": "Set variable",
   "options": {
     "variableId": "var-target-id",
-    "type": "value",
-    "value": "Assign this string or {{anotherVariable}}"
+    "type": "Custom",
+    "expressionToEvaluate": "\"Assign this string\" or {{anotherVariable}}"
   }
 }
 ```
@@ -308,7 +316,7 @@ To append to a list/string variable:
   }
 }
 ```
-To clear a variable:
+To clear/empty a variable:
 ```json
 {
   "id": "block-id-cuid",
@@ -316,6 +324,17 @@ To clear a variable:
   "options": {
     "variableId": "var-target-id",
     "type": "Empty"
+  }
+}
+```
+To set today's date:
+```json
+{
+  "id": "block-id-cuid",
+  "type": "Set variable",
+  "options": {
+    "variableId": "var-date-id",
+    "type": "Today"
   }
 }
 ```
@@ -573,6 +592,12 @@ Webhook caller block (Note: casing is uppercase `"Webhook"` for the integration,
 ## 5. Forge Blocks (New Custom Integrations)
 
 Forge blocks are modular integrations. Their `"type"` matches their integration `id` from the source code. They require `credentialsId` in `options` when authentication is needed.
+
+> [!CAUTION]
+> **`"type": "forged"` does NOT exist and is NOT a valid block type.** This is a hallucination. There is no `forgeId` wrapper. Each forge integration uses its own string directly as `"type"`. For example:
+> - ✅ `"type": "anthropic"` — correct
+> - ✅ `"type": "gmail"` — correct
+> - ❌ `"type": "forged", "options": { "forgeId": "anthropic" }` — does not exist
 
 > [!IMPORTANT]
 > All 19 Forge block IDs are:
