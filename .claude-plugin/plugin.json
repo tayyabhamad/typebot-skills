@@ -1,0 +1,17 @@
+{
+  "name": "typebot-skills",
+  "version": "1.0.0",
+  "description": "An expert AI skill set for compiling and building flawless Typebot workflow JSON configurations.",
+  "authors": [
+    "Tayyab Hamad"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tayyabhamad/typebot-skills",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tayyabhamad/typebot-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tayyabhamad/typebot-skills/issues"
+  }
+}
