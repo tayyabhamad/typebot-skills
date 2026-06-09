@@ -52,3 +52,30 @@ Before saving any JSON configuration file:
 * Run the validation checklist from the **Schema & Sync** sub-skill.
 * Ensure no overlaps occur on coordinates.
 * Double-check that all block type strings are correctly cased.
+
+---
+
+## 5. Critical Schema Traps (Source-Verified)
+
+These mistakes cause **"input validation failed"** on import. All verified against Typebot V6 source:
+
+| Block | Wrong | Correct |
+|---|---|---|
+| `text input` placeholder | `"options": { "placeholder": "..." }` | `"options": { "labels": { "placeholder": "...", "button": "Send" } }` |
+| `Wait` field name | `"options": { "seconds": 5 }` | `"options": { "secondsToWaitFor": "5" }` (string, not number) |
+| `Set variable` clear | `"type": "empty"` or `"type": "Clear value"` | `"type": "Empty"` (capital E) |
+| `Set variable` assign | `"type": "value", "value": "..."` | `"type": "Custom", "expressionToEvaluate": "..."` |
+| Forge blocks | `"type": "forged", "options": { "forgeId": "anthropic" }` | `"type": "anthropic"` directly |
+| Empty group | `"blocks": []` | Must have at least 1 block per group |
+| Disconnected edge | `"outgoingEdgeId": null` | Omit `outgoingEdgeId` entirely |
+| Webhook body escaping | Literal `"` inside body string | Escape as `\"` inside the JSON string value |
+
+### Set Variable — Complete Valid Type Enum
+From `packages/blocks/logic/src/setVariable/constants.ts` (source of truth):
+`"Custom"`, `"Empty"`, `"Append value(s)"`, `"Environment name"`, `"Device type"`, `"Transcript"`, `"User ID"`, `"Result ID"`, `"Now"`, `"Today"`, `"Yesterday"`, `"Tomorrow"`, `"Random ID"`, `"Moment of the day"`, `"Map item with same index"`, `"Pop"`, `"Shift"`, `"Phone number"`, `"Contact name"`, `"Referral Click ID"`, `"Referral Source ID"`
+
+### Gold Standard Reference
+A confirmed working import is at:
+`D:\typeBot\workflow\Enterprise Healthcare Bot_ent-healthcare-intake-bot\workflow.json`
+Use this as structural reference for any new workflow compilations.
+

@@ -10,34 +10,33 @@ Use this skill to verify that a generated or modified Typebot JSON file complies
 ---
 
 ## 1. Zod Validation & Schema Completeness
-Typebot parses the JSON against a Zod schema matching database models. Any missing required keys or incorrect types will cause the parsing to fail.
 
-### All 23 Required Root-Level Keys
-Every Typebot JSON configuration MUST include these exact root keys. Do not omit them; use default values or `null` as specified:
+Typebot parses the JSON against a Zod schema matching database models. Any missing required keys or incorrect types will cause the parsing to fail with **"input validation failed"**.
+
+> [!IMPORTANT]
+> **Import vs Export distinction:** When IMPORTING a workflow JSON, the server STRIPS and REGENERATES these fields (they are in `omittedProps` in `handleImportTypebot.ts`): `id`, `workspaceId`, `publicId`, `createdAt`, `updatedAt`, `customDomain`, `riskLevel`, `isClosed`, `isArchived`, `whatsAppCredentialsId`, `spaceId`, `resultsTablePreferences`, `selectedThemeTemplateId`.
+> You may include them for completeness, but they are ignored — they will NOT cause validation failures if wrong, and NOT cause failures if missing.
+
+### Minimum Required Root-Level Keys for Import
+These keys are what the Zod schema actually validates during import:
 
 1. `"version"` (string): Always `"6.1"`
-2. `"id"` (string): A unique `cuid` (e.g. `"clvqu4l5j00015bxibaf44slo"`)
-3. `"name"` (string): Name of the typebot
-4. `"workspaceId"` (string): The workspace ID (e.g. `"proWorkspace"`)
-5. `"groups"` (array): Array of Group objects containing blocks
-6. `"events"` (array): Array containing the start event object
-7. `"edges"` (array): Array containing connections between nodes
-8. `"variables"` (array): Array containing variable definitions
-9. `"theme"` (object): Style rules (`general`, `chat`, etc.)
-10. `"settings"` (object): Typing options, metadata, and branding config
-11. `"createdAt"` (string): ISO timestamp (e.g. `"2024-05-03T15:33:41.527Z"`)
-12. `"updatedAt"` (string): ISO timestamp
-13. `"selectedThemeTemplateId"` (null/string): Typically `null`
-14. `"icon"` (null/string): Emoji or URL representing the bot icon, or `null`
-15. `"folderId"` (null/string): Folder containing the bot, or `null`
-16. `"publicId"` (null/string): Public URL slug, or `null`
-17. `"customDomain"` (null/string): Custom web domain, or `null`
-18. `"resultsTablePreferences"` (null/object): Table layout settings, or `null`
-19. `"isArchived"` (boolean): Typically `false`
-20. `"isClosed"` (boolean): Typically `false`
-21. `"whatsAppCredentialsId"` (null/string): WhatsApp API credentials ID, or `null`
-22. `"riskLevel"` (null/number): System security risk status, or `null`
-23. `"spaceId"` (null/string): Spaces organization ID, or `null`
+2. `"name"` (string): Name of the typebot
+3. `"groups"` (array): Array of Group objects containing blocks — **groups must not be empty arrays (`[]`)**
+4. `"events"` (array): Array containing the start event object
+5. `"edges"` (array): Array of edge connections
+6. `"variables"` (array): Array of variable definitions (can be `[]`)
+7. `"theme"` (object): Can be a minimal `{}` or a partial object — fully optional sub-keys
+8. `"settings"` (object): Can be a minimal `{}` or partial — fully optional sub-keys
+
+### Recommended Additional Root-Level Keys (include for completeness)
+- `"id"` (string): Any string — ignored on import, regenerated
+- `"workspaceId"` (string): Any string — ignored on import
+- `"folderId"` (null): `null`
+- `"publicId"` (null): `null`
+- `"icon"` (string|null): Emoji icon or `null`
+- `"createdAt"` (string): ISO timestamp
+- `"updatedAt"` (string): ISO timestamp
 
 ---
 
