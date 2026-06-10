@@ -63,6 +63,10 @@ Connects the start event to the initial group.
     "graphCoordinates": { "x": 0, "y": 0 }
   }
   ```
+> [!CAUTION]
+> **CRITICAL RULE:** Do not forget to actually define this edge in the root `"edges"` array! If you give the start event an `outgoingEdgeId` but fail to add the corresponding edge object to `"edges"`, the flow will crash.
+> Ensure you add something like this to `"edges"`:
+> `{"id": "edge-start-to-group1", "from": {"eventId": "event-start"}, "to": {"groupId": "grp-target"}}`
 
 ### B. Block-to-Group (Linear Next Steps)
 When a block (like Text, Set Variable, or Text Input) automatically proceeds to the next group after displaying or capturing input.
